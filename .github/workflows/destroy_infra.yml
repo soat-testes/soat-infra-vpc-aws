@@ -1,0 +1,37 @@
+name: Destroy VPC infra 
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-infra:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+    - name: Code Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.0.0
+
+    #AWS CREDENTIALS
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-region: ${{ vars.AWS_REGION}}
+        role-to-assume: ${{ secrets.AWS_ROLE }}
+        role-session-name: vpcSession
+        
+    #Terraform execution
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Infra Destroy
+      run: terraform destroy -auto-approve
+
+    - name: Display Outputs
+      run: terraform output
