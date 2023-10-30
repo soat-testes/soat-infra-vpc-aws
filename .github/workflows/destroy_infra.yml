@@ -31,6 +31,7 @@ jobs:
       run: terraform init
 
     - name: Infra Destroy
+      if: github.event_name == 'workflow_dispatch'
       run: terraform destroy -auto-approve
 
     - name: Display Outputs
