@@ -26,7 +26,7 @@ resource "aws_subnet" "soat-subnet-private1-us-east-1a" {
 resource "aws_subnet" "soat-subnet-private1-us-east-1b" {
   vpc_id                  = aws_vpc.vpc-soat.id
   cidr_block              = "10.0.0.16/28"
-  availability_zone       = var.aws_az_a
+  availability_zone       = var.aws_az_b
   map_public_ip_on_launch = false
   tags = {
     Name  = "soat-subnet-private1-us-east-1b"
