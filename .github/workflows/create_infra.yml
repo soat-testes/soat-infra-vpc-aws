@@ -8,6 +8,9 @@ on:
 jobs:
   create-infra:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
     - name: Code Checkout
       uses: actions/checkout@v3
